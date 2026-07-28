@@ -6,7 +6,7 @@
     (which you must add manually via Hermes Settings > Models/Providers).
 
     Run in PowerShell (Admin recommended):
-    irm https://raw.githubusercontent.com/sloemo01/hermes-skills-bundle/main/install.ps1 | iex
+    iex (irm https://raw.githubusercontent.com/sloemo01/hermes-skills-bundle/main/install.ps1 | Out-String)
 
     Or: git clone ... && .\install.ps1
 .NOTES
@@ -102,10 +102,10 @@ function Start-KimiDaemon {
 
     try {
         if ($KimiPath -eq "kimi-webbridge.exe") {
-            & "kimi-webbridge.exe" start
+            & "kimi-webbridge.exe" start | Out-Host
         }
         else {
-            & $KimiPath start
+            & $KimiPath start | Out-Host
         }
         Log-Ok "Daemon started (or already running)"
 
@@ -149,7 +149,7 @@ function Check-BrowserExtension {
 }
 
 # =============================================================================
-# STEP 3: Clone Skills Repository
+# STEP 4: Clone Skills Repository
 # =============================================================================
 function Clone-Skills {
     Log-Info "Cloning skills to $SKILLS_DIR..."
@@ -254,6 +254,7 @@ try {
     Check-BrowserExtension
 
     # Step 4: Clone skills
+    if (-not (Test-Command "git")) { throw "Git is required but not installed. Install from https://git-scm.com/download/win" }
     if (-not (Clone-Skills)) { throw "Skills clone failed" }
 
     # Step 5: Verify

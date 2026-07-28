@@ -175,8 +175,6 @@ function Check-BrowserExtension {
     Write-Warning "    → https://chromewebstore.google.com/detail/kimi-webbridge/fldmhceldgbpfpkbgopacenieobmligc?pli=1"
     Write-Warning "    → Click 'Add to Chrome'"
     Write-Warning ""
-    Write-Warning "  NOTE: Firefox is NOT supported by Kimi WebBridge"
-    Write-Warning ""
     Write-Warning "  After install:"
     Write-Warning "    → Click extension icon in toolbar"
     Write-Warning "    → Sign in with your Kimi account (REQUIRED)"

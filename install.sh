@@ -163,8 +163,6 @@ check_browser_extension() {
     → https://chromewebstore.google.com/detail/kimi-webbridge/fldmhceldgbpfpkbgopacenieobmligc?pli=1
     → Click "Add to Chrome"
 
-  Firefox: ❌ NOT SUPPORTED — Kimi WebBridge only works on Chromium-based browsers
-
   After install:
     → Click extension icon in toolbar
     → Sign in with your Kimi account (REQUIRED)

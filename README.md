@@ -142,7 +142,6 @@ irm https://cdn.kimi.com/webbridge/install.ps1 | iex
 | Browser | Method |
 |---------|--------|
 | **Chrome / Edge / Brave / Arc** | [Chrome Web Store → Kimi WebBridge](https://chromewebstore.google.com/detail/kimi-webbridge/fldmhceldgbpfpkbgopacenieobmligc?pli=1) → Add to Chrome |
-| **Firefox** | ❌ **NOT SUPPORTED** — Kimi WebBridge only works on Chromium-based browsers |
 | **Manual** | Download `.crx` from kimi.com → drag to `chrome://extensions` |
 
 #### 3. Start the Daemon

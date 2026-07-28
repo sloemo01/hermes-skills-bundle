@@ -27,7 +27,7 @@ curl -fsSL https://raw.githubusercontent.com/sloemo01/hermes-skills-bundle/main/
 
 ### 2. Follow the Prompts
 The installer will pause and ask you to:
-1. **Add your NVIDIA NIM API Key:** Go to [NVIDIA API Settings](https://build.nvidia.com/settings/api-keys), generate a key (it will start with `nvapi-`), and add it to Hermes (`Settings → Models/Providers → NVIDIA`).
+1. **Add your NVIDIA NIM API Key:** Go to [NVIDIA API Settings](https://build.nvidia.com/settings/api-keys), generate a key (it will start with `nvapi-`), and add it to Hermes (`Settings (top right gear icon) → Models/Providers → NVIDIA → Paste your api`).
 2. **Install the Chrome Extension:** Add the [Kimi WebBridge Extension](https://chromewebstore.google.com/detail/kimi-webbridge/fldmhceldgbpfpkbgopacenieobmligc) and sign in.
 
 ### 3. Restart & Run

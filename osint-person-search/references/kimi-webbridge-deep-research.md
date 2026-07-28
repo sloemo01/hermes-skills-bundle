@@ -42,8 +42,8 @@ curl -X POST http://127.0.0.1:10086/command \
 # Fill search box via evaluate (more reliable than fill)
 curl -X POST ... -d '{"action":"evaluate","args":{"code":"document.querySelector(\"textarea[name=\'q\']\").value = \"[Target Name]\""},"session":"[target-slug]-research"}'
 
-# Submit with send_keys (human-like)
-curl -X POST ... -d '{"action":"send_keys","args":{"keys":"Enter"},"session":"[target-slug]-research"}'
+# Submit with fill (human-like)
+curl -X POST ... -d '{"action":"fill","args":{"keys":"Enter"},"session":"[target-slug]-research"}'
 
 # Wait for results
 sleep 3
@@ -106,7 +106,7 @@ curl -X POST ... -d '{"action":"snapshot","args":{},"session":"[target-slug]-res
 |-----------|--------------|----------------|
 | **Random delays (2-5s)** | Mimics human reading time | `sleep $((RANDOM % 4 + 2))` between actions |
 | **`evaluate` for form fills** | Avoids `fill()` extension bugs; sets value directly | `document.querySelector('selector').value = 'text'` |
-| **`send_keys` for Enter** | Human-like key event vs synthetic click | `{"action":"send_keys","args":{"keys":"Enter"}}` |
+| **`fill` for Enter** | Human-like key event vs synthetic click | `{"action":"fill","args":{"keys":"Enter"}}` |
 | **Single session name** | All tabs grouped in one browser tab group | Use same `session` value across all commands |
 | **Human navigation order** | Search → Results → Profiles (not direct deep links) | Always start from Google/search engine |
 | **Snapshot after state changes** | Verifies content loaded; captures accessibility tree | Call `snapshot` after every navigation/wait |
@@ -170,7 +170,7 @@ curl.exe -s -X POST http://127.0.0.1:10086/command -H "Content-Type: application
 **macOS / Linux:**
 ```bash
 cat > /tmp/kimi-keys.json << 'EOF'
-{"action":"send_keys","args":{"keys":"Enter"},"session":"my-research"}
+{"action":"fill","args":{"keys":"Enter"},"session":"my-research"}
 EOF
 curl -s -X POST http://127.0.0.1:10086/command -H "Content-Type: application/json" -d @/tmp/kimi-keys.json
 ```
@@ -178,7 +178,7 @@ curl -s -X POST http://127.0.0.1:10086/command -H "Content-Type: application/jso
 **Windows (PowerShell):**
 ```powershell
 @'
-{"action":"send_keys","args":{"keys":"Enter"},"session":"my-research"}
+{"action":"fill","args":{"keys":"Enter"},"session":"my-research"}
 '@ | Set-Content -Path "$env:TEMP\kimi-keys.json" -Encoding UTF8
 curl.exe -s -X POST http://127.0.0.1:10086/command -H "Content-Type: application/json" --data-binary @"$env:TEMP\kimi-keys.json"
 ```

@@ -194,11 +194,9 @@ for i in {0..9}; do
   curl -s -X POST http://127.0.0.1:10086/command \
     -H 'Content-Type: application/json' \
     -d "{\"action\":\"find_tab\",\"args\":{\"url\":\"${SEARCH_URLS[i]}\"},\"session\":\"$session\"}"
-  \n
   curl -s -X POST http://127.0.0.1:10086/command \
     -H 'Content-Type: application/json' \
     -d "{\"action\":\"snapshot\",\"args\":{\"full\":true},\"session\":\"$session\"}"
-  \n
   # Then run platform-specific evaluate script
 done
 

@@ -8,7 +8,7 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [prompt-analysis, interactive, decision-support, clarification, planning, intent-classification, ambiguity-detection, skill-routing, multi-modal, predictive, self-improving, adversarial-testing, cross-session-learning, cost-estimation, counterfactual-reasoning, autonomous-optimization]
-    related_skills: [deep-web-research, job-search-automation, mcp-server-research, osint-person-search, research-automation-bundle, plan, computer-use, plan]
+    related_skills: [deep-web-research, job-search-automation, mcp-server-research, osint-person-search, research-automation-bundle, plan, computer-use]
 ---
 
 # Interactive Prompt Analyzer v3 — The Ultimate Prompt Intelligence Engine
@@ -286,35 +286,7 @@ adversarial_tests = {
 # "Option A passes 94/100 stress tests. Fails: 'budget cut 50%' (mitigation: use free tier)"
 ```
 
-### 9. **Autonomous Prompt Optimization** (Layer 7)
-```python
-# Continuous prompt rewriting for clarity & token efficiency:
-original = "I need to find information about AI agents and maybe also look at some frameworks and compare them"
-optimized = {
-    "rewritten": "Compare LangGraph, AutoGen, CrewAI, and OpenAI Swarm for production multi-agent systems. Evaluate: state management, tool calling reliability, observability, deployment patterns, team adoption curves. Context: 5-person ML team building customer support automation. Output: comparison matrix + ranked recommendation.",
-    "token_reduction": "68% fewer tokens",
-    "clarity_score": "9.2/10 (was 4.1/10)",
-    "ambiguity_reduction": "87% fewer predicted ambiguities",
-    "auto_applied": True  # Applied automatically before option generation
-}
-```
 
-### 10. **Cross-Session Learning & Preference Drift Detection** (Layer 6)
-```python
-# Detects when user preferences shift:
-preference_drift = {
-    "detected": True,
-    "dimension": "depth_preference",
-    "old_value": "comprehensive",
-    "new_value": "targeted",
-    "confidence": 0.89,
-    "evidence": "Last 3 sessions: chose 'Targeted Search' over 'Deep Research'",
-    "action": "Auto-adjusted default depth; will confirm at next session start"
-}
-
-# Collaborative filtering:
-similar_users = "Users with similar ML expertise + devops background chose 'Custom Pipeline' 73% of the time for EU compliance tasks."
-```
 
 ---
 

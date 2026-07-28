@@ -31,22 +31,6 @@ function Log-Err   { Write-Host "[ERR]   $($args)" -ForegroundColor Red }
 
 function Test-Command { (Get-Command $args[0] -ErrorAction SilentlyContinue) -ne $null }
 
-# =============================================================================
-# STEP 0: NVIDIA NIM API KEY REMINDER
-# =============================================================================
-Write-Host ""
-Write-Host "╔═══════════════════════════════════════════════════════════════════════╗"
-Write-Host "║  Hermes Research Automation Skill Bundle — Windows Installer      ║"
-Write-Host "╚═══════════════════════════════════════════════════════════════════════╝"
-Write-Host ""
-
-Write-Warning "⚠️  BEFORE RUNNING: You MUST add your NVIDIA NIM API key first!"
-Write-Warning "   1. Go to https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b"
-Write-Warning "   2. Click 'Get API Key' → copy nvapi-..."
-Write-Warning "   3. In Hermes: Settings (gear) → Models/Providers → NVIDIA → paste key"
-Write-Warning "   4. Select model: nvidia/nemotron-3-ultra-550b-a55b"
-Write-Host ""
-Read-Host "Press Enter after adding your NVIDIA API key to Hermes..."
 
 # =============================================================================
 # STEP 1: Install Kimi WebBridge Daemon
@@ -79,6 +63,7 @@ function Install-KimiWebBridge {
         Log-Info "Installing Kimi WebBridge via winget..."
         try {
             winget install --id MoonshotAI.KimiWebBridge --silent --accept-source-agreements --accept-package-agreements
+            if ($LASTEXITCODE -ne 0) { throw "winget install failed (exit code $LASTEXITCODE)" }
             Log-Ok "Kimi WebBridge installed via winget"
         }
         catch {
@@ -90,7 +75,7 @@ function Install-KimiWebBridge {
         Log-Warn "winget not found. Trying direct download..."
         try {
             # Download and run installer
-            $tempFile = [IO.Path]::GetTempFileName() + ".ps1"
+            $tempFile = Join-Path ([IO.Path]::GetTempPath()) ("hermes_kimi_" + [Guid]::NewGuid().ToString('N') + ".ps1")
             Invoke-WebRequest -Uri "https://cdn.kimi.com/webbridge/install.ps1" -OutFile $tempFile
             & powershell -ExecutionPolicy Bypass -File $tempFile
             Remove-Item $tempFile -Force
@@ -166,7 +151,7 @@ function Start-KimiDaemon {
 }
 
 # =============================================================================
-# STEP 2: Browser Extension (manual)
+# STEP 3: Browser Extension (manual)
 # =============================================================================
 function Check-BrowserExtension {
     Log-Info "Kimi WebBridge browser extension (manual step required):"
@@ -192,6 +177,7 @@ function Clone-Skills {
         try {
             Push-Location $SKILLS_DIR
             git pull --ff-only
+            if ($LASTEXITCODE -ne 0) { throw "git pull failed (exit code $LASTEXITCODE)" }
             Log-Ok "Skills updated"
         }
         finally { Pop-Location }
@@ -266,6 +252,14 @@ try {
     Write-Host "║  Hermes Research Automation Skill Bundle — Windows Installer      ║"
     Write-Host "╚═══════════════════════════════════════════════════════════════════════╝"
     Write-Host ""
+
+    Write-Warning "⚠️  BEFORE RUNNING: You MUST add your NVIDIA NIM API key first!"
+    Write-Warning "   1. Go to https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b"
+    Write-Warning "   2. Click 'Get API Key' → copy nvapi-..."
+    Write-Warning "   3. In Hermes: Settings (gear) → Models/Providers → NVIDIA → paste key"
+    Write-Warning "   4. Select model: nvidia/nemotron-3-ultra-550b-a55b"
+    Write-Host ""
+    Read-Host "Press Enter after adding your NVIDIA API key to Hermes..."
 
     # Step 1: Install Kimi WebBridge
     $kimiPath = Install-KimiWebBridge

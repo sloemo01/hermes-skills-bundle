@@ -6,7 +6,7 @@
 # (which you must add manually via Hermes Settings > Models/Providers).
 #
 # macOS / Linux:   curl -fsSL https://raw.githubusercontent.com/sloemo01/hermes-skills-bundle/main/install.sh | bash
-# Windows (PS):    irm https://raw.githubusercontent.com/sloemo01/hermes-skills-bundle/main/install.ps1 | iex
+# Windows (PS):    iex (irm https://raw.githubusercontent.com/sloemo01/hermes-skills-bundle/main/install.ps1 | Out-String)
 # =============================================================================
 
 set -euo pipefail
@@ -17,15 +17,14 @@ set -euo pipefail
 REPO_URL="https://github.com/sloemo01/hermes-skills-bundle.git"
 SKILLS_DIR="${HOME}/.hermes/skills/hermes-skills-bundle"
 KIMI_INSTALL_URL="https://cdn.kimi.com/webbridge/install.sh"
-KIMI_INSTALL_URL_PS="https://cdn.kimi.com/webbridge/install.ps1"
 
 # =============================================================================
 # LOGGING
 # =============================================================================
-log_info()  { echo -e "\033[1;34m[INFO]\033[0m  $*"; }
-log_ok()    { echo -e "\033[1;32m[OK]\033[0m    $*"; }
-log_warn()  { echo -e "\033[1;33m[WARN]\033[0m  $*"; }
-log_err()   { echo -e "\033[1;31m[ERR]\033[0m  $*"; }
+log_info()  { echo -e "\033[1;34m[INFO]\033[0m  $*" >&2; }
+log_ok()    { echo -e "\033[1;32m[OK]\033[0m    $*" >&2; }
+log_warn()  { echo -e "\033[1;33m[WARN]\033[0m  $*" >&2; }
+log_err()   { echo -e "\033[1;31m[ERR]\033[0m  $*" >&2; }
 
 # =============================================================================
 # OS DETECTION
@@ -37,28 +36,7 @@ detect_os() {
         *)      echo "unknown" ;;
     esac
 }
-OS="$(detect_os)"
 
-# =============================================================================
-# STEP 0: NVIDIA NIM API KEY REMINDER
-# =============================================================================
-cat <<'EOF'
-
-╔═══════════════════════════════════════════════════════════════════════╗
-║  Hermes Research Automation Skill Bundle — Installer                ║
-╚═══════════════════════════════════════════════════════════════════════╝
-
-⚠️  BEFORE RUNNING: You MUST add your NVIDIA NIM API key first!
-
-   1. Go to https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b
-   2. Click "Get API Key" → copy nvapi-...
-   3. In Hermes: Settings (gear) → Models/Providers → NVIDIA → paste key
-   4. Select model: nvidia/nemotron-3-ultra-550b-a55b
-
-EOF
-
-read -p "Press Enter after adding your NVIDIA API key to Hermes..." -r
-echo ""
 
 # =============================================================================
 # STEP 1: Install Kimi WebBridge Daemon
@@ -170,15 +148,19 @@ check_browser_extension() {
 EOF
 }
 # =============================================================================
-# STEP 3: Clone Skills
+# STEP 4: Clone Skills
 # =============================================================================
 clone_skills() {
     log_info "Cloning skills to ${SKILLS_DIR}..."
 
     if [[ -d "${SKILLS_DIR}/.git" ]]; then
         log_info "Repository exists, pulling latest..."
-        (cd "${SKILLS_DIR}" && git pull --ff-only)
-        log_ok "Skills updated"
+        if (cd "${SKILLS_DIR}" && git pull --ff-only); then
+            log_ok "Skills updated"
+        else
+            log_err "Git pull failed"
+            return 1
+        fi
     else
         if git clone "${REPO_URL}" "${SKILLS_DIR}"; then
             log_ok "Skills cloned to ${SKILLS_DIR}"
@@ -190,7 +172,7 @@ clone_skills() {
 }
 
 # =============================================================================
-# STEP 4: Verify Skills
+# STEP 5: Verify Skills
 # =============================================================================
 verify_skills() {
     log_info "Verifying skills..."
@@ -213,7 +195,7 @@ verify_skills() {
             log_ok "  ${skill}"
         else
             log_err "  ${skill} (MISSING)"
-            ((missing++))
+            missing=$((missing + 1))
         fi
     done
 
@@ -227,7 +209,7 @@ verify_skills() {
 }
 
 # =============================================================================
-# STEP 5: Prompt Restart
+# STEP 6: Prompt Restart
 # =============================================================================
 prompt_restart_hermes() {
     log_warn "You MUST RESTART HERMES now for skills to load:"
@@ -254,6 +236,21 @@ main() {
     echo "╚════════════════════════════════════════════════════════════════╝"
     echo ""
 
+    OS="$(detect_os)"
+
+    cat <<'EOF'
+⚠️  BEFORE RUNNING: You MUST add your NVIDIA NIM API key first!
+
+   1. Go to https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b
+   2. Click "Get API Key" → copy nvapi-...
+   3. In Hermes: Settings (gear) → Models/Providers → NVIDIA → paste key
+   4. Select model: nvidia/nemotron-3-ultra-550b-a55b
+
+EOF
+
+    read -p "Press Enter after adding your NVIDIA API key to Hermes..." -r </dev/tty
+    echo ""
+
     # Step 1: Install Kimi WebBridge
     KIMI_PATH=$(install_kimi_webbridge) || exit 1
 
@@ -263,13 +260,13 @@ main() {
     # Step 3: Browser extension
     check_browser_extension
 
-    # Step 3: Clone skills
+    # Step 4: Clone skills
     clone_skills || exit 1
 
-    # Step 4: Verify
+    # Step 5: Verify
     verify_skills || exit 1
 
-    # Step 5: Prompt restart
+    # Step 6: Prompt restart
     prompt_restart_hermes
 
     echo ""

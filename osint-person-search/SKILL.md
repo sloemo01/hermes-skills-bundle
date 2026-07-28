@@ -118,27 +118,6 @@ Handle variations              → johndoe, john_doe, john-doe
 - YouTube (@johndoe → 404)
 - GitHub (no public repos under handle)
 ```
-|| Tab | Target | Purpose ||
-||-----|--------|---------||
-|| 1 | Google Search | Seed query + result URLs ||
-|| 2 | LinkedIn Profile | Professional identity, role, company ||
-|| 3 | Facebook | Personal/social presence ||
-|| 4 | Instagram | Visual content, bio links, highlights ||
-|| 5 | YouTube Channel | Video content, subscriber count ||
-|| 6 | Google "Name LinkedIn" | LinkedIn-specific results ||
-|| 7 | Google "Name Instagram" | Instagram-specific results ||
-|| 8 | Google "Name YouTube" | YouTube-specific results ||
-|| 9 | Google "Name creator/influencer" | Content creator signals ||
-|| 10 | Google "Name interview podcast" | Media appearances ||
-|| 11+ | Direct content URLs (Shorts, Reels, Posts) | Deep content analysis ||
-
-### Anti-Detection Best Practices (from user preference)
-- **Add random delays** (2-5s) between tab navigation and extraction
-- **Use `evaluate` for form fills** instead of `fill` (more reliable)
-- **Use `send_keys` for Enter/submit** instead of clicking buttons
-- **Reuse single session name** across all tabs → single tab group in browser
-- **Group title in user's language** (e.g., "Self Research - Target Name")
-- **Snapshot after each state change** to verify content loaded
 
 ## Kimi WebBridge Deep Research Workflow
 
@@ -190,8 +169,8 @@ curl -X POST http://127.0.0.1:10086/command \
 # Fill search boxes via evaluate (avoids fill() issues)
 curl ... -d '{"action":"evaluate","args":{"code":"document.querySelector(\"textarea[name='q']\").value = \"Target Name\""},"session":"..."}'
 
-# Submit with send_keys (human-like)
-curl ... -d '{"action":"send_keys","args":{"keys":"Enter"},"session":"..."}'
+# Submit with fill (human-like)
+curl ... -d '{"action":"fill","args":{"keys":"Enter"},"session":"..."}'
 
 # Wait between actions (anti-detection)
 sleep 3
@@ -219,7 +198,7 @@ curl ... -d '{"action":"snapshot","args":{},"session":"..."}'
 ### Anti-Detection Best Practices (from user preference)
 - **Add random delays** (2-5s) between tab navigation and extraction
 - **Use `evaluate` for form fills** instead of `fill` (more reliable)
-- **Use `send_keys` for Enter/submit** instead of clicking buttons
+- **Use `fill` for Enter/submit** instead of clicking buttons
 - **Reuse single session name** across all tabs → single tab group in browser
 - **Group title in user's language** (e.g., "Self Research - Target Name")
 - **Snapshot after each state change** to verify content loaded
@@ -243,3 +222,7 @@ curl ... -d '{"action":"snapshot","args":{},"session":"..."}'
 
 - `social-media-data-extraction` — for bulk data collection from platforms
 - `computer-use` — for GUI automation when browser tools hit auth walls
+
+## References
+
+- [Kimi WebBridge Deep Research Workflow](file:///e:/hermes-skills-bundle/osint-person-search/references/kimi-webbridge-deep-research.md)

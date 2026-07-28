@@ -103,8 +103,7 @@ memory(
     target="memory",
     operations=[
         {"action": "add", "content": f"User prefers {browser_choice} for all browser automation — standing preference for all future sessions."},
-        {"action": "add", "content": f"User prefers {research_style} research workflows. Uses \"{repeat_word}\" to request re-doing a task with the same approach."},
-        {"action": "add", "content": f"User uses \"{repeat_word}\" as a command to re-do a task with the same approach (deep research, multiple tabs, Kimi WebBridge)."},
+        {"action": "add", "content": f"User prefers {research_style} research workflows. Uses \"{repeat_word}\" as a command to re-do a task with the same approach."},
         {"action": "add", "content": f"User is privacy-conscious: {privacy_choice}. Avoids public pastes/external uploads."},
         {"action": "add", "content": f"Preview pane workflows: use open_preview(url, label) to embed web content, files, or screenshots. Patterns: {ui_patterns}."}
     ]
@@ -136,3 +135,7 @@ To test without saving, use a test profile or mock the memory tool.
 ## Related Skills
 
 None — this is a standalone onboarding skill.
+
+## References
+
+- [Questions Reference](file:///e:/hermes-skills-bundle/memory-setup/references/questions.md)

@@ -49,7 +49,7 @@ models:
   default: "nvidia/nemotron-3-ultra-550b-a55b"
 ```
 
-> **Test it:** `curl -H "Authorization: Bearer ***" https://integrate.api.nvidia.com/v1/models` — should return model list.
+> **Test it:** `curl -H "Authorization: Bearer YOUR_API_KEY" https://integrate.api.nvidia.com/v1/models` — should return model list.
 
 ---
 
@@ -64,7 +64,7 @@ curl -fsSL https://raw.githubusercontent.com/sloemo01/hermes-skills-bundle/main/
 
 **Windows (PowerShell):**
 ```powershell
-irm https://raw.githubusercontent.com/sloemo01/hermes-skills-bundle/main/install.ps1 | iex
+iex (irm https://raw.githubusercontent.com/sloemo01/hermes-skills-bundle/main/install.ps1 | Out-String)
 ```
 
 ### Option 2: Manual Clone
@@ -114,7 +114,7 @@ Answers save to `~/.hermes/memories/memory.md` — every future session knows yo
 | `mcp-server-research` | research | Find free MCP servers for **any topic** — data, APIs, dev tools, automation |
 | `osint-person-search` | research | Cross-platform person verification (12+ platforms) |
 | `interactive-prompt-analyzer` | utility | Vague prompt → structured options + custom escape hatch |
-| `research-automation-bundle` | meta | Loads all 7 research skills as coordinated workflow |
+| `research-automation-bundle` | meta | Loads all 6 research skills as coordinated workflow |
 | `memory-setup` | onboarding | Guided 5-question memory configuration |
 
 ---
@@ -134,7 +134,7 @@ curl -fsSL https://cdn.kimi.com/webbridge/install.sh | bash
 
 **Windows (PowerShell):**
 ```powershell
-irm https://cdn.kimi.com/webbridge/install.ps1 | iex
+iex (irm https://cdn.kimi.com/webbridge/install.ps1 | Out-String)
 ```
 
 #### 2. Install Browser Extension
@@ -153,7 +153,7 @@ irm https://cdn.kimi.com/webbridge/install.ps1 | iex
 # Windows (PowerShell)
 & "$env:USERPROFILE\.kimi-webbridge\bin\kimi-webbridge.exe" start
 
-# Cross-platform (any shell)
+# Bash/Zsh
 ${HOME:-$USERPROFILE}/.kimi-webbridge/bin/kimi-webbridge${EXE:-} start
 ```
 
@@ -309,19 +309,10 @@ hermes-skills-bundle/
 ├── osint-person-search/
 │   ├── SKILL.md
 │   └── references/
-│       ├── anonymized-case-study-1.md
-│       ├── anonymized-case-study-2.md
-│       ├── anonymized-case-study-3.md
 │       └── kimi-webbridge-deep-research.md
 ├── research-automation-bundle/
 │   └── SKILL.md
 ```
-
----
-
-## 📄 License
-
-**MIT License** — see [LICENSE](LICENSE) for full text.
 
 ---
 

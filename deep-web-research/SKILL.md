@@ -62,33 +62,34 @@ document.querySelector("@e58").href
 ```
 
 ### Correct Usage
-Always pass `@e` references directly as the `selector` value:
+Always pass `@e` references directly as the `selector` value. The Kimi WebBridge resolves `@e` references server-side before browser execution, making them valid in WebBridge commands but NOT in raw browser JS.
+
 ```bash
 # ✅ CORRECT - Use @e reference directly as selector
 curl -s -X POST http://127.0.0.1:10086/command \
   -d '{"action":"click","args":{"selector":"@e58"},"session":"my-session"}'
 
-# ✅ CORRECT - For getting attributes, use evaluate with the @e reference in JS
+# ✅ CORRECT - For getting attributes, use the get_attribute action
 curl -s -X POST http://127.0.0.1:10086/command \
-  -d '{"action":"evaluate","args":{"code":"return document.querySelector(\"@e58\").href"},"session":"my-session"}'
+  -d '{"action":"get_attribute","args":{"selector":"@e58","attribute":"href"},"session":"my-session"}'
 ```
 
 ### When You Need Attributes
 If you need to extract attributes like `href`, `textContent`, etc. from an element identified by `@e` reference:
-1. Use the `@e` reference directly in an `evaluate` call
-2. Inside the evaluate code, you can use standard DOM methods
+1. Use the `get_attribute` action with the `@e` reference
+2. Or, if you need to use `evaluate`, use a standard CSS selector (not an `@e` reference)
 
-Example:
+Example using a proper CSS selector in evaluate:
 ```bash
 curl -s -X POST http://127.0.0.1:10086/command \
-  -d '{"action":"evaluate","args":{"code":"const el = document.querySelector(\"@e58\"); return el ? el.href : null;"},"session":"my-session"}'
+  -d '{"action":"evaluate","args":{"code":"const el = document.querySelector(\"a.target-link\"); return el ? el.href : null;"},"session":"my-session"}'
 ```
 
 ### Workflow Recommendation
 1. Use `snapshot` to get the accessibility tree with `@e` references
 2. Identify the target element by its `@e` reference and role/name
 3. For actions (click, fill): Pass the `@e` reference directly as `selector`
-4. For attribute extraction: Use `evaluate` with the `@e` reference in the JS code
+4. For attribute extraction: Use `get_attribute` with the `@e` reference
 5. Never try to manipulate `@e` references as strings or use them in CSS selectors outside of the tool parameters
 
 ### 5. Closing
@@ -174,3 +175,8 @@ navigate("https://company.com/team/alice", newTab:true, session:"alice-research"
 # ... repeat for 10+ sources
 # Snapshot each, cross-reference, synthesize
 ```
+
+## References
+
+- [E-Reference Guide](file:///e:/hermes-skills-bundle/deep-web-research/references/e-reference-guide.md)
+- [Search Engine Preference](file:///e:/hermes-skills-bundle/deep-web-research/references/search-engine-preference.md)

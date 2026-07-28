@@ -3,9 +3,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![OS: Windows | macOS | Linux](https://img.shields.io/badge/OS-Windows%20%7C%20macOS%20%7C%20Linux-blue)](#)
 
-> **9 cross-platform skills** for deep web research, OSINT, MCP server discovery, hiring analysis, and general investigation. 
-> 
-> Powered by **Kimi WebBridge** (controlling your *real browser* and *login sessions*) and **NVIDIA Nemotron 3 Ultra** (via NVIDIA NIM).
+### Break your AI out of the text box.
+
+Most AI agents are trapped in sterile, headless environments where they get blocked by CAPTCHAs and login walls. **This bundle changes that.**
+
+By combining the **Hermes Agent**, **NVIDIA Nemotron 3 Ultra**, and **Kimi WebBridge**, these 9 cross-platform skills give your AI the ability to take control of your *real Chrome browser* and use your *actual login sessions*. It can navigate LinkedIn, X/Twitter, and GitHub exactly like you do—bypassing login walls to perform deep web research, OSINT investigations, and hiring analysis autonomously.
 
 ---
 

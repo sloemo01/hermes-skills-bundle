@@ -58,34 +58,16 @@ function Install-KimiWebBridge {
         return "kimi-webbridge.exe"
     }
 
-    # Install via winget or direct download
-    if (Test-Command "winget") {
-        Log-Info "Installing Kimi WebBridge via winget..."
-        try {
-            winget install --id MoonshotAI.KimiWebBridge --silent --accept-source-agreements --accept-package-agreements | Out-Host
-            if ($LASTEXITCODE -ne 0) { throw "winget install failed (exit code $LASTEXITCODE)" }
-            Log-Ok "Kimi WebBridge installed via winget"
-        }
-        catch {
-            Log-Err "winget install failed. Try manual: $($KIMI_INSTALL_URL)"
-            return $null
-        }
+    # Install via official CDN installer
+    Log-Info "Installing Kimi WebBridge via CDN installer..."
+    try {
+        iex (irm $KIMI_INSTALL_URL | Out-String) | Out-Host
+        Log-Ok "Kimi WebBridge installed via CDN"
     }
-    else {
-        Log-Warn "winget not found. Trying direct download..."
-        try {
-            # Download and run installer
-            $tempFile = Join-Path ([IO.Path]::GetTempPath()) ("hermes_kimi_" + [Guid]::NewGuid().ToString('N') + ".ps1")
-            Invoke-WebRequest -Uri "https://cdn.kimi.com/webbridge/install.ps1" -OutFile $tempFile
-            & powershell -ExecutionPolicy Bypass -File $tempFile | Out-Host
-            Remove-Item $tempFile -Force
-            Log-Ok "Kimi WebBridge installed via CDN"
-        }
-        catch {
-            Log-Err "Direct install failed: $_"
-            Log-Warn "Manual install: https://kimi.com/features/webbridge"
-            return $null
-        }
+    catch {
+        Log-Err "Installation failed: $_"
+        Log-Warn "Manual install: https://kimi.com/features/webbridge"
+        return $null
     }
 
     # Verify installation

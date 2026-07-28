@@ -252,6 +252,10 @@ EOF
     echo ""
 
     # Step 1: Install Kimi WebBridge
+    if ! command -v curl >/dev/null 2>&1; then
+        log_err "curl is required but not installed."
+        exit 1
+    fi
     KIMI_PATH=$(install_kimi_webbridge) || exit 1
 
     # Step 2: Start daemon
@@ -261,6 +265,10 @@ EOF
     check_browser_extension
 
     # Step 4: Clone skills
+    if ! command -v git >/dev/null 2>&1; then
+        log_err "Git is required but not installed. Install with: brew install git (macOS) or apt install git (Linux)"
+        exit 1
+    fi
     clone_skills || exit 1
 
     # Step 5: Verify

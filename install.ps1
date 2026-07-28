@@ -18,7 +18,7 @@
 # =============================================================================
 $ErrorActionPreference = "Stop"
 $REPO_URL       = "https://github.com/sloemo01/hermes-skills-bundle.git"
-$SKILLS_DIR     = Join-Path $env:USERPROFILE ".hermes", "skills", "hermes-skills-bundle"
+$SKILLS_DIR     = Join-Path (Join-Path (Join-Path $env:USERPROFILE ".hermes") "skills") "hermes-skills-bundle"
 $KIMI_INSTALL_URL = "https://cdn.kimi.com/webbridge/install.ps1"
 
 # =============================================================================
@@ -229,7 +229,7 @@ function Verify-Skills {
 
     $missing = 0
     foreach ($skill in $skills) {
-        $skillFile = Join-Path $SKILLS_DIR $skill "SKILL.md"
+        $skillFile = Join-Path (Join-Path $SKILLS_DIR $skill) "SKILL.md"
         if (Test-Path $skillFile) {
             Log-Ok "  $skill"
         }

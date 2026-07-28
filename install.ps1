@@ -62,7 +62,7 @@ function Install-KimiWebBridge {
     if (Test-Command "winget") {
         Log-Info "Installing Kimi WebBridge via winget..."
         try {
-            winget install --id MoonshotAI.KimiWebBridge --silent --accept-source-agreements --accept-package-agreements
+            winget install --id MoonshotAI.KimiWebBridge --silent --accept-source-agreements --accept-package-agreements | Out-Host
             if ($LASTEXITCODE -ne 0) { throw "winget install failed (exit code $LASTEXITCODE)" }
             Log-Ok "Kimi WebBridge installed via winget"
         }
@@ -77,7 +77,7 @@ function Install-KimiWebBridge {
             # Download and run installer
             $tempFile = Join-Path ([IO.Path]::GetTempPath()) ("hermes_kimi_" + [Guid]::NewGuid().ToString('N') + ".ps1")
             Invoke-WebRequest -Uri "https://cdn.kimi.com/webbridge/install.ps1" -OutFile $tempFile
-            & powershell -ExecutionPolicy Bypass -File $tempFile
+            & powershell -ExecutionPolicy Bypass -File $tempFile | Out-Host
             Remove-Item $tempFile -Force
             Log-Ok "Kimi WebBridge installed via CDN"
         }
@@ -176,7 +176,7 @@ function Clone-Skills {
         Log-Info "Repository exists, pulling latest..."
         try {
             Push-Location $SKILLS_DIR
-            git pull --ff-only
+            git pull --ff-only | Out-Host
             if ($LASTEXITCODE -ne 0) { throw "git pull failed (exit code $LASTEXITCODE)" }
             Log-Ok "Skills updated"
         }
@@ -184,7 +184,7 @@ function Clone-Skills {
     }
     else {
         try {
-            git clone "https://github.com/sloemo01/hermes-skills-bundle.git" $SKILLS_DIR
+            git clone "https://github.com/sloemo01/hermes-skills-bundle.git" $SKILLS_DIR | Out-Host
             Log-Ok "Skills cloned to $SKILLS_DIR"
         }
         catch {

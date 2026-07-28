@@ -236,8 +236,8 @@ try {
     Write-Host ""
 
     Write-Warning "⚠️  BEFORE RUNNING: You MUST add your NVIDIA NIM API key first!"
-    Write-Warning "   1. Go to https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b"
-    Write-Warning "   2. Click 'Get API Key' → copy nvapi-..."
+    Write-Warning "   1. Go to https://build.nvidia.com/settings/api-keys"
+    Write-Warning "   2. Click 'Generate Key' (or similar) → copy nvapi-..."
     Write-Warning "   3. In Hermes: Settings (gear) → Models/Providers → NVIDIA → paste key"
     Write-Warning "   4. Select model: nvidia/nemotron-3-ultra-550b-a55b"
     Write-Host ""

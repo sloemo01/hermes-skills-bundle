@@ -241,8 +241,8 @@ main() {
     cat <<'EOF'
 ⚠️  BEFORE RUNNING: You MUST add your NVIDIA NIM API key first!
 
-   1. Go to https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b
-   2. Click "Get API Key" → copy nvapi-...
+   1. Go to https://build.nvidia.com/settings/api-keys
+   2. Click "Generate Key" (or similar) → copy nvapi-...
    3. In Hermes: Settings (gear) → Models/Providers → NVIDIA → paste key
    4. Select model: nvidia/nemotron-3-ultra-550b-a55b
 

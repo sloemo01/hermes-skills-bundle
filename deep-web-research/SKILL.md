@@ -25,7 +25,7 @@ curl -s -X POST http://127.0.0.1:10086/command \
 
 **Rules:**
 - One task = one session = one tab group
-- Session name = task identifier (e.g., `vsouthvpawv-research`, `mcp-trading-search`)
+- Session name = task identifier (e.g., `vsouthvpawv-research`, `web-search`)
 - `group_title` = user-language label shown in browser tab group
 - Never switch session names mid-task
 

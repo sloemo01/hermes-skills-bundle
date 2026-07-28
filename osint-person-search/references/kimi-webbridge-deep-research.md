@@ -1,6 +1,6 @@
 # Deep Research Workflows with Kimi WebBridge
 
-## Multi-Tab OSINT Research Pattern (Validated: 2025-07-27)
+## Multi-Tab OSINT Research Pattern
 
 ### Session Initialization
 
@@ -9,10 +9,10 @@
 # 1. Ensure daemon is running
 ~/.kimi-webbridge/bin/kimi-webbridge start
 
-# 2. Create session with descriptive group title (user's language)
+# 2. Create session with descriptive group title
 curl -X POST http://127.0.0.1:10086/command \
   -H "Content-Type: application/json" \
-  -d '{"action":"navigate","args":{"url":"https://www.google.com","newTab":true,"group_title":"Self Research - [Target Name]"},"session":"[target-slug]-research"}'
+  -d '{"action":"navigate","args":{"url":"https://www.google.com","newTab":true,"group_title":"Research - [Target Name]"},"session":"[target-slug]-research"}'
 ```
 
 **Windows (PowerShell):**
@@ -34,13 +34,13 @@ ${HOME:-$USERPROFILE}/.kimi-webbridge/bin/kimi-webbridge${EXE:-} start
 # 2. Create session (same curl command works everywhere)
 curl -X POST http://127.0.0.1:10086/command \
   -H "Content-Type: application/json" \
-  -d '{"action":"navigate","args":{"url":"https://www.google.com","newTab":true,"group_title":"Self Research - [Target Name]"},"session":"[target-slug]-research"}'
+  -d '{"action":"navigate","args":{"url":"https://www.google.com","newTab":true,"group_title":"Research - [Target Name]"},"session":"[target-slug]-research"}'
 ```
 
 ### Phase 1: Seed Search & Handle Discovery
 ```bash
 # Fill search box via evaluate (more reliable than fill)
-curl -X POST ... -d '{"action":"evaluate","args":{"code":"document.querySelector(\"textarea[name=\'q\']").value = \"[Target Name]\""},"session":"[target-slug]-research"}'
+curl -X POST ... -d '{"action":"evaluate","args":{"code":"document.querySelector(\"textarea[name=\'q\']\").value = \"[Target Name]\""},"session":"[target-slug]-research"}'
 
 # Submit with send_keys (human-like)
 curl -X POST ... -d '{"action":"send_keys","args":{"keys":"Enter"},"session":"[target-slug]-research"}'
@@ -195,4 +195,4 @@ This workflow is the **browser automation layer** for the `osint-person-search` 
 4. **Cross-reference handles** — same session, easy tab switching
 5. **Document everything** — raw snapshots + extracted findings
 
-The `osint-person-search` skill now references this workflow in its **Tools Quick Reference** section and includes the Nehal Kanak case study as a validated example.
+The `osint-person-search` skill references this workflow in its **Tools Quick Reference** section.

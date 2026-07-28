@@ -168,23 +168,19 @@ curl -s -X POST http://127.0.0.1:10086/command \
   -d '{"action":"close_session","args":{},"session":"<SESSION_NAME>"}'
 ```
 
-## Tab Group Search Workflow (10 Tabs)
+## Tab Group Search Workflow (N Tabs)
 
 ```bash
-session="agentic-jobs-search"
-group_title="Job Search - Agentic AI Engineer"
+session="job-search-<TOPIC>"
+group_title="Job Search - <TOPIC>"
 
+# Define search URLs with user-provided keywords
 SEARCH_URLS=(
-  "https://in.indeed.com/jobs?q=agentic+ai+engineer+remote+python+tool+calling&location=Remote"
-  "https://in.indeed.com/jobs?q=ai+agent+engineer+python+function+calling+remote&location=Remote"
-  "https://in.indeed.com/jobs?q=n8n+ai+automation+engineer+remote+python&location=Remote"
-  "https://in.indeed.com/jobs?q=ai+workflow+orchestration+engineer+remote+python&location=Remote"
-  "https://www.linkedin.com/jobs/search/?keywords=agentic%20ai%20engineer%20python%20remote&location=India&f_WT=2"
-  "https://www.linkedin.com/jobs/search/?keywords=ai%20agent%20engineer%20python%20tool%20calling%20remote&location=India&f_WT=2"
-  "https://www.naukri.com/agentic-ai-engineer-jobs-in-india?k=agentic%20ai%20engineer&experience=0-3&location=remote"
-  "https://www.naukri.com/ai-automation-engineer-jobs-in-india?k=ai%20automation%20engineer&experience=0-3&location=remote"
-  "https://www.naukri.com/llm-engineer-jobs-in-india?k=llm%20engineer&experience=0-3&location=remote"
-  "https://wellfound.com/jobs?q=agentic+ai+engineer&remote=true"
+  "https://in.indeed.com/jobs?q=<KEYWORDS1>&location=Remote"
+  "https://in.indeed.com/jobs?q=<KEYWORDS2>&location=Remote"
+  "https://www.linkedin.com/jobs/search/?keywords=<KEYWORDS3>&location=India&f_WT=2"
+  "https://www.naukri.com/<ROLE>-jobs-in-india?k=<KEYWORDS4>&experience=0-3&location=remote"
+  # Add more as needed
 )
 
 for url in "${SEARCH_URLS[@]}"; do
@@ -198,11 +194,11 @@ for i in {0..9}; do
   curl -s -X POST http://127.0.0.1:10086/command \
     -H 'Content-Type: application/json' \
     -d "{\"action\":\"find_tab\",\"args\":{\"url\":\"${SEARCH_URLS[i]}\"},\"session\":\"$session\"}"
-  
+  \n
   curl -s -X POST http://127.0.0.1:10086/command \
     -H 'Content-Type: application/json' \
     -d "{\"action\":\"snapshot\",\"args\":{\"full\":true},\"session\":\"$session\"}"
-  
+  \n
   # Then run platform-specific evaluate script
 done
 

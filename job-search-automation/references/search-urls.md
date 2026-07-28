@@ -1,89 +1,120 @@
 # Search URL Templates — Job Search Automation
 
-## LinkedIn (US Remote, $200K+)
-```
-# Agentic AI Architect
-https://www.linkedin.com/jobs/search/?keywords=agentic%20AI%20architect%20remote&location=Remote&f_WT=2&f_SB2=200000
+## Template Format
 
-# Agentic AI Engineer
-https://www.linkedin.com/jobs/search/?keywords=agentic%20AI%20engineer%20remote&location=Remote&f_WT=2&f_SB2=200000
+Replace `[KEYWORDS]`, `[LOCATION]`, and other placeholders with user-provided values.
 
-# Principal AI Architect
-https://www.linkedin.com/jobs/search/?keywords=principal%20AI%20architect%20remote&location=Remote&f_WT=2&f_SB2=200000
+## LinkedIn
 
-# LLM Agent Architect
-https://www.linkedin.com/jobs/search/?keywords=LLM%20agent%20architect%20remote&location=Remote&f_WT=2&f_SB2=200000
+```bash
+# Generic template
+https://www.linkedin.com/jobs/search/?keywords=[KEYWORDS]&location=[LOCATION]&f_WT=[REMOTE_FILTER]&f_SB2=[SALARY_MIN]
 
-# AI Orchestration Engineer
-https://www.linkedin.com/jobs/search/?keywords=AI%20orchestration%20engineer%20remote&location=Remote&f_WT=2&f_SB2=200000
+# Examples (user fills in):
+# https://www.linkedin.com/jobs/search/?keywords=python%20developer%20remote&location=Remote&f_WT=2&f_SB2=150000
+# https://www.linkedin.com/jobs/search/?keywords=ml%20engineer%20remote&location=United%20States&f_WT=2
 ```
 
-## Indeed (US Remote, Last 7 Days)
-```
-# Agentic AI Architect
-https://www.indeed.com/jobs?q=agentic+AI+architect+remote&l=Remote&fromage=7
+**Parameters:**
+| Param | Meaning | Example Values |
+|-------|---------|----------------|
+| `keywords` | Search terms | `python developer`, `ml engineer`, `devops engineer` |
+| `location` | Geographic location | `Remote`, `United States`, `India`, `London` |
+| `f_WT=2` | Remote filter | `2` = Remote |
+| `f_SB2=X` | Minimum base salary (USD) | `150000`, `200000`, `250000` |
+| `f_TPR=r604800` | Posted within 7 days | `r604800` = last week |
 
-# Agentic AI Engineer
-https://www.indeed.com/jobs?q=agentic+AI+engineer+remote&l=Remote&fromage=7
+## Indeed
 
-# Sr AI Architect
-https://www.indeed.com/jobs?q=senior+AI+architect+remote&l=Remote&fromage=7
+```bash
+# Generic template
+https://www.indeed.com/jobs?q=[KEYWORDS]&l=[LOCATION]&fromage=[DAYS]
 
-# AI Platform Architect
-https://www.indeed.com/jobs?q=AI+platform+architect+remote&l=Remote&fromage=7
-```
-
-## Dice (US Remote)
-```
-# Agentic AI Engineer
-https://www.dice.com/jobs?q=agentic%20AI%20engineer%20remote&location=Remote
-
-# Agentic AI Architect
-https://www.dice.com/jobs?q=agentic%20AI%20architect%20remote&location=Remote
-
-# LLM Engineer Remote
-https://www.dice.com/jobs?q=LLM%20engineer%20remote&location=Remote
+# Examples:
+# https://www.indeed.com/jobs?q=python+developer+remote&l=Remote&fromage=7
+# https://in.indeed.com/jobs?q=ml+engineer+remote&l=Remote&fromage=7
 ```
 
-## Glassdoor (US Remote — use .com domain)
-```
-# Agentic AI Engineer
-https://www.glassdoor.com/Job/remote-agentic-ai-engineer-jobs-SRCH_IL.0,6_IK7,26.htm
-
-# AI Architect
-https://www.glassdoor.com/Job/remote-ai-architect-jobs-SRCH_IL.0,6_IK7,17.htm
-
-# Principal AI Engineer
-https://www.glassdoor.com/Job/remote-principal-ai-engineer-jobs-SRCH_IL.0,6_IK7,23.htm
-```
-
-## Search Parameter Reference
-
-### LinkedIn
+**Parameters:**
 | Param | Meaning | Example |
 |-------|---------|---------|
-| `keywords` | Search query | `agentic%20AI%20architect` |
-| `location` | Location | `Remote`, `United%20States` |
-| `f_WT` | Work type | `2` = Remote, `1` = On-site, `3` = Hybrid |
-| `f_SB2` | Salary min (base) | `200000` = $200K+ |
-| `f_E` | Experience level | `4` = Director, `5` = Executive, `6` = Intern |
-| `f_JT` | Job type | `F` = Full-time, `C` = Contract |
-| `start` | Pagination offset | `0`, `25`, `50` |
+| `q` | Search query | `python developer remote` |
+| `l` | Location | `Remote`, `United States`, `India` |
+| `fromage` | Days back | `1` (24h), `7` (week), `14`, `30` |
+| `radius` | Distance from location | `50`, `100` |
 
-### Indeed
+## Dice
+
+```bash
+# Generic template
+https://www.dice.com/jobs?q=[KEYWORDS]&location=[LOCATION]
+
+# Examples:
+# https://www.dice.com/jobs?q=python+developer+remote&location=Remote
+# https://www.dice.com/jobs?q=devops+engineer&location=Remote
+```
+
+## Glassdoor
+
+```bash
+# Use .co.in for India-based searches (includes remote)
+# Generic template
+https://www.glassdoor.co.in/Job/[ROLE]-jobs-SRCH_KO0,17.htm?clickSource=searchBox
+
+# Examples:
+# https://www.glassdoor.co.in/Job/python-developer-jobs-SRCH_KO0,17.htm
+# https://www.glassdoor.co.in/Job/ml-engineer-jobs-SRCH_KO0,17.htm
+```
+
+## Naukri (India-Focused)
+
+```bash
+# Generic template
+https://www.naukri.com/[ROLE]-jobs-in-india?k=[KEYWORDS]&experience=[EXP_RANGE]&location=remote
+
+# Examples:
+# https://www.naukri.com/python-developer-jobs-in-india?k=python%20developer&experience=0-5&location=remote
+# https://www.naukri.com/ml-engineer-jobs-in-india?k=ml%20engineer&experience=2-7&location=remote
+```
+
+**Parameters:**
 | Param | Meaning | Example |
 |-------|---------|---------|
-| `q` | Query | `agentic+AI+architect+remote` |
-| `l` | Location | `Remote`, `United+States` |
-| `fromage` | Days since posted | `1`, `3`, `7`, `14` |
-| `start` | Pagination | `0`, `10`, `20` |
-| `salary` | Salary filter | `$200,000` (limited support) |
+| `k` | Keywords | `python developer`, `ml engineer` |
+| `experience` | Years range | `0-3`, `3-7`, `7-10` |
+| `location` | Location | `remote`, `bangalore`, `mumbai` |
 
-### Dice
-| Param | Meaning | Example |
-|-------|---------|---------|
-| `q` | Query | `agentic%20AI%20engineer%20remote` |
-| `location` | Location | `Remote`, `United%20States` |
-| `radius` | Distance | `30`, `50` (miles) |
-| `page` | Page number | `1`, `2`, `3` |
-| `sort` | Sort order | `relevance`, `date` |
+## Wellfound (AngelList) — Manual Only
+
+```bash
+# Cannot automate (DataDome CAPTCHA)
+https://wellfound.com/jobs?q=[KEYWORDS]&remote=true
+
+# Example:
+# https://wellfound.com/jobs?q=python+developer&remote=true
+```
+
+## Lever / Greenhouse — Generally Broken
+
+- `jobs.lever.co/search?q=` → 404
+- `boards.greenhouse.io/search/jobs?q=` → 404
+- Use company-specific career pages instead
+
+---
+
+## Search Strategy (Agent Should Generate)
+
+When user says "Find jobs for [ROLE]":
+
+1. **Clarify** (if needed):
+   - "What specific keywords? (e.g., 'python developer', 'ml engineer', 'devops')"
+   - "Location preference? (Remote, US, India, EU, etc.)"
+   - "Salary minimum? (e.g., $150K, ₹30L)"
+   - "Experience level? (0-3, 3-7, 7+ years)"
+   - "Recency? (last 24h, 7 days, 30 days)"
+
+2. **Build URLs** using templates above with user's keywords
+
+3. **Open 8-10 tabs** in single tab group via Kimi WebBridge
+
+4. **Extract & synthesize** results across platforms

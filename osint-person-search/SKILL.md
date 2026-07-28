@@ -29,21 +29,21 @@ A class-level skill for discovering and verifying person profiles, professional 
 ## Core Principles
 
 1. **Start broad, then narrow** — Begin with name + location/role combinations, iterate with discovered handles
-2. **Cross-reference handles** — Same username often reused across platforms (sohansurag, sohan_surag, sohansurag.com)
-3. **Verify with multiple sources** — LinkedIn claim "Senior Designer at Yara" confirmed by Behance case study + personal site + XING = high confidence
-4. **Document negative results** — "No Facebook profile found for @sohansurag" is as valuable as positive findings
+2. **Cross-reference handles** — Same username often reused across platforms (johndoe, john_doe, johndoe.com)
+3. **Verify with multiple sources** — LinkedIn claim "Senior Designer at Example Corp" confirmed by Behance case study + personal site + XING = high confidence
+4. **Document negative results** — "No Facebook profile found for @johndoe" is as valuable as positive findings
 5. **Respect platform ToS** — Use search engines, aggregators, public profiles; avoid scraping behind auth walls
 
 ## Search Strategy Framework
 
 ### Phase 1: Seed Queries (Name Variants)
 ```
-"Full Name"                    → "Sohan Surag"
-"First Last" + role            → "Sohan Surag product designer"
-"First Last" + location        → "Sohan Surag Berlin"
-"First Last" + company         → "Sohan Surag Yara International"
-"First M. Last"                → "S. Surag designer"
-Handle variations              → sohansurag, sohan_surag, sohan-surag
+"Full Name"                    → "John Doe"
+"First Last" + role            → "John Doe product designer"
+"First Last" + location        → "John Doe Berlin"
+"First Last" + company         → "John Doe Example Corp"
+"First M. Last"                → "J. Doe designer"
+Handle variations              → johndoe, john_doe, john-doe
 ```
 
 ### Phase 2: Platform-Specific Tactics
@@ -71,7 +71,7 @@ Handle variations              → sohansurag, sohan_surag, sohan-surag
 ### Phase 4: Enrichment & Correlation
 - **Email permutation** → `hunter.io`, `voilanorbert`, `findthat.email` (from domain)
 - **Phone/address** → Whitepages, TruePeopleSearch (US), local equivalents
-- **Domain WHOIS** → `whois sohansurag.com` → registrant name/email
+- **Domain WHOIS** → `whois johndoe.com` → registrant name/email
 - **Image reverse search** → Google Lens, Yandex, TinEye (profile photos across platforms)
 - **Certificate Transparency** → `crt.sh` for subdomains (portfolio.NAME.com)
 
@@ -84,7 +84,7 @@ Handle variations              → sohansurag, sohan_surag, sohan-surag
 | Company page lists person in role | High |
 | Mutual connections on LinkedIn | Medium |
 | Consistent bio/headline/location | Medium |
-| Cross-platform project references (YaraPlus on LinkedIn + Behance + personal site) | High |
+| Cross-platform project references (ProjectX on LinkedIn + Behance + personal site) | High |
 | Single platform only, no cross-links | Low |
 | Common name, no disambiguators | Very Low |
 
@@ -101,23 +101,23 @@ Handle variations              → sohansurag, sohan_surag, sohan-surag
 ## Verified Profiles
 | Platform | URL | Handle | Status | Key Signals |
 |----------|-----|--------|--------|-------------|
-| LinkedIn | https://... | sohansurag | ✅ Verified | 2K followers, Yara International, 10+ certs |
-| X/Twitter | https://... | @SohanSurag | ✅ Verified | 1.6K posts, Berlin\|Kerala, joined 2009 |
-| Behance | https://... | sohansurag | ✅ Verified | 14+ yrs exp, YaraPlus/EFI IQ case studies |
-| Personal Site | https://sohansurag.com | — | ✅ Verified | Portfolio, blog, resume, contact |
+| LinkedIn | https://... | johndoe | ✅ Verified | 2K followers, Example Corp, 10+ certs |
+| X/Twitter | https://... | @JohnDoe | ✅ Verified | 1.6K posts, Berlin|NYC, joined 2010 |
+| Behance | https://... | johndoe | ✅ Verified | 10+ yrs exp, ProjectX/ProjectY case studies |
+| Personal Site | https://johndoe.com | — | ✅ Verified | Portfolio, blog, resume, contact |
 
 ## Unverified / Partial
 | Platform | URL | Notes |
 |----------|-----|-------|
-| Instagram | @sohan_surag | 0 posts, 60 followers — likely inactive/reserved |
-| XING | Sohan_Surag | Profile visible but gated behind login |
-| F6S | sohansurag | Bot detection blocked access |
+| Instagram | @john_doe | 0 posts, 60 followers — likely inactive/reserved |
+| XING | John_Doe | Profile visible but gated behind login |
+| F6S | johndoe | Bot detection blocked access |
 
 ## Not Found
 - Facebook (no public profile matching name + role + location)
-- YouTube (@sohansurag → 404)
+- YouTube (@johndoe → 404)
 - GitHub (no public repos under handle)
-### Multi-Platform Coverage Checklist (10+ tabs)
+```
 || Tab | Target | Purpose ||
 ||-----|--------|---------||
 || 1 | Google Search | Seed query + result URLs ||
@@ -137,7 +137,7 @@ Handle variations              → sohansurag, sohan_surag, sohan-surag
 - **Use `evaluate` for form fills** instead of `fill` (more reliable)
 - **Use `send_keys` for Enter/submit** instead of clicking buttons
 - **Reuse single session name** across all tabs → single tab group in browser
-- **Group title in user's language** (e.g., "Self Research - Nehal Kanak")
+- **Group title in user's language** (e.g., "Self Research - Target Name")
 - **Snapshot after each state change** to verify content loaded
 
 ## Kimi WebBridge Deep Research Workflow
@@ -221,7 +221,7 @@ curl ... -d '{"action":"snapshot","args":{},"session":"..."}'
 - **Use `evaluate` for form fills** instead of `fill` (more reliable)
 - **Use `send_keys` for Enter/submit** instead of clicking buttons
 - **Reuse single session name** across all tabs → single tab group in browser
-- **Group title in user's language** (e.g., "Self Research - Nehal Kanak")
+- **Group title in user's language** (e.g., "Self Research - Target Name")
 - **Snapshot after each state change** to verify content loaded
 
 ## Pitfalls to Avoid
@@ -231,17 +231,15 @@ curl ... -d '{"action":"snapshot","args":{},"session":"..."}'
 - ❌ Scraping behind login walls (ToS violation, unreliable)
 - ❌ Ignoring "no result" — document what you checked
 - ❌ Using stale cached data — re-verify live profiles for time-sensitive work
-- ❌ Conflating personal vs. brand accounts (e.g., @sohan___inc ≠ @sohansurag)
+- ❌ Conflating personal vs. brand accounts (e.g., @john___inc ≠ @johndoe)
 
 ## Skill Evolution Notes
 
-- **2025-07-27**: Created from deep search session on "Sohan Surag" — validated multi-platform methodology across 12+ platforms, documented handle correlation pattern (sohansurag/sohan_surag), and standardized dossier output format.
-- **2025-07-27**: Applied methodology to search for "Arjun Raj" + "Sohan Surag" connection — found no public linkage between the two individuals. Sohan Surag is a verified Berlin-based Senior Product Designer at Yara International. "Arjun Raj" is a common name with 1,600+ LinkedIn profiles spanning actors, professors, designers, engineers — none with documented professional overlap with Sohan Surag.
-- **2025-07-27**: Applied methodology to **"Nehal Kanak" / "Nihal Hameed" (@nihalkkaa)** — 10-tab Kimi WebBridge deep research session. Resolved dual identity (creator persona: Nihal Hameed, 1.6M IG followers; academic persona: Nehal Kanak, Kannur University student). Validated human-like browsing patterns with anti-detection techniques: random delays, `evaluate` for form fills, `send_keys` for submit, single session across 11 tabs. Documented full extraction methodology and cross-platform correlation matrix.
-- **References**: See `references/sohan-surag-case-study.md` for full Sohan Surag findings. See `references/arjun-raj-sohan-surag-search.md` for connection search attempt and negative result documentation. See `references/nehal-kanak-nihalkkaa-case-study.md` for complete Nehal Kanak / Nihal Hameed case study with Kimi WebBridge execution logs.
+- **2025-07-27**: Created from deep search sessions — validated multi-platform methodology across 12+ platforms, documented handle correlation patterns, and standardized dossier output format.
+- **2025-07-27**: Applied methodology to search for connections between individuals — demonstrated how to document negative results when no public linkage exists between individuals.
+- **2025-07-27**: Applied methodology to resolve dual identities (creator persona vs. academic/professional persona) — validated human-like browsing patterns with anti-detection techniques: random delays, `evaluate` for form fills, `send_keys` for submit, single session across 11 tabs. Documented full extraction methodology and cross-platform correlation matrix.
 
 ## Related Skills
 
 - `social-media-data-extraction` — for bulk data collection from platforms
-- `social-media-hiring-research` — for talent-specific search patterns
 - `computer-use` — for GUI automation when browser tools hit auth walls

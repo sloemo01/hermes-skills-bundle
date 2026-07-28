@@ -170,12 +170,12 @@ function Start-KimiDaemon {
 # =============================================================================
 function Check-BrowserExtension {
     Log-Info "Kimi WebBridge browser extension (manual step required):"
-    Write-Warning "You MUST install the browser extension:"
+    Write-Warning "You MUST install the browser extension (Chromium-based browsers ONLY):"
     Write-Warning "  Chrome / Edge / Brave / Arc:"
     Write-Warning "    → https://chromewebstore.google.com/detail/kimi-webbridge/fldmhceldgbpfpkbgopacenieobmligc?pli=1"
     Write-Warning "    → Click 'Add to Chrome'"
-    Write-Warning "  Firefox:"
-    Write-Warning "    → Firefox Add-ons → search 'Kimi WebBridge' → Add"
+    Write-Warning ""
+    Write-Warning "  NOTE: Firefox is NOT supported by Kimi WebBridge"
     Write-Warning ""
     Write-Warning "  After install:"
     Write-Warning "    → Click extension icon in toolbar"

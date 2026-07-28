@@ -157,22 +157,20 @@ start_kimi_daemon() {
 check_browser_extension() {
     log_info "Kimi WebBridge browser extension (manual step required):"
     cat <<'EOF'
-  You MUST install the browser extension:
-  
+  You MUST install the browser extension (Chromium-based browsers ONLY):
+
   Chrome / Edge / Brave / Arc:
     → https://chromewebstore.google.com/detail/kimi-webbridge/fldmhceldgbpfpkbgopacenieobmligc?pli=1
     → Click "Add to Chrome"
-  
-  Firefox:
-    → Firefox Add-ons → search "Kimi WebBridge" → Add
-  
+
+  Firefox: ❌ NOT SUPPORTED — Kimi WebBridge only works on Chromium-based browsers
+
   After install:
     → Click extension icon in toolbar
     → Sign in with your Kimi account (REQUIRED)
     → Should show "Connected to daemon"
 EOF
 }
-
 # =============================================================================
 # STEP 3: Clone Skills
 # =============================================================================
